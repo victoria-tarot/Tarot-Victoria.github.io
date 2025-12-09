@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victoria - Tarot Evolutivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-purple: #703882; /* Color aproximado de tus tarjetas */
+            --bg-dark: #0a0a12;
+            --text-gold: #f0e6d2;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-dark);
+            /* AQUÍ IRÁ TU FONDO DE ESTRELLAS */
+            background-image: url('tu-imagen-fondo.png'); 
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- Tipografía --- */
+        h1, h2, h3, .card-title {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* --- Navegación / Contenedores --- */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Ocultar secciones que no están activas */
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- BOTÓN VOLVER --- */
+        .btn-back {
+            background: transparent;
+            border: 1px solid var(--white);
+            color: var(--white);
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            transition: all 0.3s;
+        }
+        .btn-back:hover {
+            background: var(--white);
+            color: var(--primary-purple);
+        }
+
+        /* --- PÁGINA DE INICIO (HOME) --- */
+        .home-header {
+            margin-bottom: 30px;
+            border-left: 4px solid #dba6f0;
+            padding-left: 15px;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Tarjeta Grande "Sobre Mi" */
+        .big-card {
+            background-color: var(--primary-purple);
+            border-radius: 30px;
+            padding: 20px;
+            height: 100%;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .big-card:hover, .small-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(112, 56, 130, 0.6);
+        }
+
+        .big-card img {
+            width: 80%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            /* Filtro para que se vea integrado si usas una foto */
+            mix-blend-mode: luminosity; 
+        }
+
+        /* Grilla de tarjetas pequeñas */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .small-card {
+            background-color: var(--primary-purple);
+            border-radius: 20px;
+            padding: 20px;
+            aspect-ratio: 1 / 1.2; /* Mantiene formato vertical */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .card-icon {
+            font-size: 3rem; /* Tamaño del icono/emoji */
+            margin-bottom: 15px;
+            color: #2e1a36; /* Color oscuro del dibujo */
+        }
+
+        .card-title {
+            font-size: 1rem;
+            border-top: 1px solid rgba(0,0,0,0.2);
+            padding-top: 10px;
+            width: 80%;
+        }
+
+        .main-quote {
+            grid-column: 1 / -1;
+            margin-top: 30px;
+            font-style: italic;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+
+        /* --- SECCIÓN TARIFAS --- */
+        .tarifas-list {
+            background: rgba(40, 20, 40, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .tarifa-item {
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 20px;
+        }
+        .tarifa-header {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #ffdda1;
+        }
+        .tarifa-details {
+            font-size: 0.9rem;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+
+        /* --- SECCIÓN SOBRE MI --- */
+        .about-content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            text-align: justify;
+            line-height: 1.6;
+        }
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+        }
+        .about-img img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* --- SECCIÓN FAQ --- */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            text-align: left;
+        }
+        .faq-item h3 {
+            margin-bottom: 10px;
+            color: #dcbdf5;
+        }
+        .faq-item p {
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        /* --- SECCIÓN MENSAJE DEL DÍA --- */
+        .paper-msg {
+            background-color: #f3e5c9; /* Color papel */
+            color: #2c3e50; /* Color tinta */
+            padding: 60px;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 50% 40% 60% 40%; /* Forma orgánica irregular */
+            font-family: 'Dancing Script', cursive; /* Fuente manuscrita si está disponible */
+            font-size: 1.5rem;
+            transform: rotate(-2deg);
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* --- RESPONSIVE (Móvil) --- */
+        @media (max-width: 768px) {
+            .home-grid {
+                grid-template-columns: 1fr;
+            }
+            .options-grid {
+                grid-template-columns: 1fr 1fr; /* 2 columnas en móvil */
+            }
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="home" class="section active">
+            <div class="home-header">
+                <h1>TAROT EVOLUTIVO</h1>
+            </div>
+
+            <div class="home-grid">
+                <div class="big-card" onclick="showSection('sobre-mi')">
+                    <div style="font-size:4rem;">🔮</div>
+                    <h2 style="margin-top:20px; border-bottom: 1px solid black;">Sobre Mi...</h2>
+                </div>
+
+                <div class="options-grid">
+                    <div class="small-card" onclick="window.location.href='https://calendly.com/TU-ENLACE'">
+                        <div class="card-icon">💑</div>
+                        <div class="card-title">Agenda tu cita</div>
+                    </div>
+                    <div class="small-card" onclick="showSection('mensaje')">
+                        <div class="card-icon">☀️</div>
+                        <div class="card-title">Mensaje del día</div>
+                    </div>
+                    <div class="small-card" onclick="alert('Sección en construcción')">
+                        <div class="card-icon">🦁</div>
+                        <div class="card-title">Amuletos</div>
+                    </div>
+                    <div class="small-card" onclick="showSection('tarifas')">
+                        <div class="card-icon">🎡</div>
+                        <div class="card-title">Tarifas</div>
+                    </div>
+                    <div class="small-card" onclick="showSection('testimonios')">
+                        <div class="card-icon">⚖️</div>
+                        <div class="card-title">Testimonios</div>
+                    </div>
+                    <div class="small-card" onclick="showSection('faq')">
+                        <div class="card-icon">🌙</div>
+                        <div class="card-title">Preguntas Frecuentes</div>
+                    </div>
+                </div>
+
+                <div class="main-quote">
+                    "LO QUE NO SE HACE CONSCIENTE, SE MANIFIESTA COMO DESTINO."
+                </div>
+            </div>
+        </div>
+
+        <div id="sobre-mi" class="section">
+            <button class="btn-back" onclick="showSection('home')">← Volver al inicio</button>
+            <h2>Hola, soy Victoria.</h2>
+            <br>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="tu-foto-victoria.jpg" alt="Victoria Tarot">
+                </div>
+                <div class="about-text">
+                    <p>Desde que tengo memoria, he sentido un imán hacia lo místico, la magia y todo aquello que nuestros ojos no ven a simple vista. Mientras otros miraban hacia afuera, yo siempre sentí curiosidad por mirar hacia adentro, hacia lo desconocido.</p>
+                    <br>
+                    <p>Cuando el Tarot llegó a mis manos, no fue un descubrimiento, fue una evidencia. Sentí que había encontrado un lenguaje que siempre supe hablar. Pasé años estudiándolo con respeto y dedicación, pero fue cuando conocí la visión de Alejandro Jodorowsky que todo cobró una nueva dimensión.</p>
+                    <br>
+                    <p>Hoy utilizo el Tarot como una herramienta terapéutica y evolutiva. Mi objetivo es acompañarte a descifrar tus bloqueos, entender tu momento actual y devolverte el poder sobre tu destino.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tarifas" class="section">
+            <button class="btn-back" onclick="showSection('home')">← Volver</button>
+            <h2 style="margin-bottom:30px">Mis Tarifas</h2>
+            
+            <div class="tarifas-list">
+                <div class="tarifa-item">
+                    <div class="tarifa-header">1. 🌑 LUNA CRECIENTE</div>
+                    <div class="tarifa-details">Tiempo: 15 Minutos | Precio: 20€</div>
+                    <p>Para una duda puntual. Una respuesta rápida que trae el primer rayo de luz a una situación urgente.</p>
+                </div>
+                <div class="tarifa-item">
+                    <div class="tarifa-header">2. 🌓 CUARTO CRECIENTE</div>
+                    <div class="tarifa-details">Tiempo: 30 Minutos | Precio: 40€</div>
+                    <p>Enfocada en un solo tema (Amor o Trabajo).</p>
+                </div>
+                <div class="tarifa-item">
+                    <div class="tarifa-header">3. 🌔 LUNA GIBOSA</div>
+                    <div class="tarifa-details">Tiempo: 45 Minutos | Precio: 60€</div>
+                    <p>Analizamos patrones del pasado que afectan tu presente. Mucha más claridad.</p>
+                </div>
+                <div class="tarifa-item">
+                    <div class="tarifa-header">4. 🌕 LUNA LLENA</div>
+                    <div class="tarifa-details">Tiempo: 60 Minutos | Precio: 80€</div>
+                    <p>Iluminamos todas las áreas de tu vida para un reset total del alma.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="faq" class="section">
+            <button class="btn-back" onclick="showSection('home')">← Volver</button>
+            <h2 style="margin-bottom: 30px">Preguntas Frecuentes (FAQ)</h2>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>1. ¿Me dirás cosas malas o tragedias?</h3>
+                    <p>No. El Tarot Evolutivo no sentencia tu futuro ni busca asustarte. Usamos las cartas para sanar, entender tu presente y desbloquear tu camino. Saldrás con paz, no con miedo.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>4. ¿Necesito tener preguntas preparadas?</h3>
+                    <p>Ayuda tener un tema (amor, trabajo, bloqueo), pero no es obligatorio. Si te sientes perdida, haremos un "Mapa de Conciencia".</p>
+                </div>
+                <div class="faq-item">
+                    <h3>2. ¿En qué te diferencias de una vidente?</h3>
+                    <p>Yo no "adivino" qué te va a pasar, porque el futuro no está escrito. Te ayudo a entender por qué te pasa lo que te pasa y te doy herramientas.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>5. ¿Cómo elijo mi amuleto?</h3>
+                    <p>Confía en tu intuición. Si una foto te atrae magnéticamente, es porque tu energía necesita la vibración de ese objeto.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>3. ¿Funciona igual si es a distancia?</h3>
+                    <p>¡Sí! La energía no tiene fronteras. Nos conectamos por videollamada y la sesión es tan profunda como frente a frente.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>6. ¿Cómo reservo mi cita?</h3>
+                    <p>Ve al botón de "Agenda tu cita", elige en el calendario el día y hora que prefieras y realiza el pago seguro para confirmar.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="mensaje" class="section">
+            <button class="btn-back" onclick="showSection('home')">← Volver</button>
+            <br><br>
+            <div class="paper-msg">
+                "Hoy domina a tus bestias internas con suavidad, no con fuerza bruta. Tu inteligencia es tu mayor poder."
+            </div>
+        </div>
+
+        <div id="testimonios" class="section">
+            <button class="btn-back" onclick="showSection('home')">← Volver</button>
+            <h2>Testimonios</h2>
+            <p style="margin-top:20px">Aquí irán las opiniones de tus clientes...</p>
+        </div>
+
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // 1. Ocultar todas las secciones
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            // 2. Mostrar la seleccionada
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.classList.add('active');
+            }
+            
+            // 3. Volver arriba
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
