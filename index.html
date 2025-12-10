@@ -12,6 +12,7 @@
             --bg-dark: #0a0a12;
             --text-gold: #f0e6d2;
             --white: #ffffff;
+            --card-bg: rgba(30, 15, 30, 0.90); /* Fondo violeta oscuro estilo Canva */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,71 +35,93 @@
 
         /* --- BOTONES DE IDIOMA --- */
         .lang-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.2);
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: rgba(0, 0, 0, 0.6); padding: 10px; border-radius: 30px;
+            backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2);
         }
         .lang-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-            margin: 0 5px;
-            transition: transform 0.2s;
-            opacity: 0.7;
+            background: none; border: none; cursor: pointer; font-size: 1.5rem;
+            margin: 0 5px; transition: transform 0.2s; opacity: 0.7;
         }
-        .lang-btn:hover, .lang-btn.active {
-            transform: scale(1.2);
-            opacity: 1;
+        .lang-btn:hover, .lang-btn.active { transform: scale(1.2); opacity: 1; }
+
+        /* --- ESTILOS TARJETAS ESTILO CANVA (PC & MÓVIL) --- */
+        .design-card {
+            background-color: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: left;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            margin-top: 20px;
+            color: var(--text-gold);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* --- ESTILO "PAPEL MÁGICO" --- */
-        .paper-note {
-            background-color: #fdfbf7;
-            color: #2c2c2c;
-            padding: 40px;
-            max-width: 600px;
-            margin: 40px auto;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.6rem;
-            line-height: 1.5;
+        .design-card h2 {
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transform: rotate(-1deg);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: var(--text-gold);
+        }
+
+        .design-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+        }
+
+        /* Layout para "Sobre Mí" en PC: Foto izq, texto der */
+        .about-layout {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        .about-text { flex: 1; }
+        .about-photos { flex: 1; display: flex; flex-direction: column; gap: 20px; }
+        .pc-photo {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            border: 1px solid rgba(240, 230, 210, 0.3);
+        }
+
+        /* --- ESTILO "PAPEL MÁGICO" (ORÁCULO) --- */
+        .paper-note {
+            background-color: #fdfbf7; color: #2c2c2c; padding: 40px;
+            max-width: 600px; margin: 40px auto;
+            font-family: 'Dancing Script', cursive; font-size: 1.6rem;
+            line-height: 1.5; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: rotate(-1deg);
             position: relative;
         }
-
         .tape {
-            background-color: rgba(255, 255, 255, 0.4);
-            width: 120px; height: 35px;
+            background-color: rgba(255, 255, 255, 0.4); width: 120px; height: 35px;
             position: absolute; top: -15px; left: 50%;
             transform: translateX(-50%) rotate(2deg);
         }
 
         .btn-reload, .btn-back, .btn-back-mobile {
-            cursor: pointer;
-            font-family: 'Cinzel', serif;
-            transition: all 0.3s;
+            cursor: pointer; font-family: 'Cinzel', serif; transition: all 0.3s;
         }
-
         .btn-reload {
             margin-top: 20px; padding: 15px 30px;
             background: var(--primary-purple); color: white;
             border: 1px solid var(--text-gold); border-radius: 20px;
         }
-        
         .btn-back {
-            background: rgba(0,0,0,0.5); border: 1px solid white; 
+            background: transparent; border: 1px solid white; 
             color: white; padding: 10px 25px; border-radius: 50px;
+            margin-bottom: 20px;
         }
+        .btn-back:hover { background: white; color: black; }
 
-        /* --- ESCRITORIO --- */
+        /* --- RESPONSIVE --- */
         @media (min-width: 769px) {
             .mobile-only { display: none; }
             .desktop-menu-container { position: relative; max-width: 900px; margin: 0 auto; }
@@ -114,11 +137,8 @@
             .area-tarifas { top: 49%; left: 30%; width: 20%; height: 38%; } 
             .area-testimonios { top: 49%; left: 52%; width: 20%; height: 38%; } 
             .area-faq { top: 49%; left: 74%; width: 20%; height: 38%; } 
-
-            .pc-content-img { width: 100%; max-width: 800px; border-radius: 15px; margin-top: 20px; }
         }
 
-        /* --- MÓVIL --- */
         @media (max-width: 768px) {
             .desktop-only { display: none; }
             .mobile-container { padding: 15px; display: flex; flex-direction: column; align-items: center; }
@@ -140,14 +160,10 @@
             .menu-text h3 { font-size: 1.2rem; color: var(--text-gold); margin-bottom: 5px; text-align: left; }
             .menu-text p { font-size: 0.9rem; color: #ccc; text-align: left; }
 
-            .text-content { text-align: left; background: rgba(0, 0, 0, 0.4); padding: 20px; border-radius: 15px; margin-top: 10px; width: 100%; }
-            .text-content p { margin-bottom: 15px; line-height: 1.6; }
-            .text-content h2 { color: var(--text-gold); margin-bottom: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; }
-            
-            .my-photo { width: 100%; border-radius: 15px; border: 1px solid var(--text-gold); margin: 10px 0; }
-            .list-item { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
-            .list-title { font-family: 'Cinzel', serif; color: var(--text-gold); font-size: 1.1rem; margin-bottom: 5px; }
             .btn-back-mobile { background: transparent; border: 1px solid var(--white); color: var(--white); padding: 10px 20px; border-radius: 30px; margin-bottom: 20px; width: 100%; }
+            
+            /* Ajuste layout móvil para Sobre Mi */
+            .about-layout { flex-direction: column-reverse; }
         }
     </style>
 </head>
@@ -160,6 +176,7 @@
     </div>
 
     <div class="container desktop-only">
+        
         <div id="desktop-home" class="desktop-section active">
             <div class="desktop-menu-container">
                 <img src="menu-principal.png" alt="Menú Tarot" class="menu-img">
@@ -176,16 +193,65 @@
         </div>
 
         <div id="desktop-sobre-mi" class="desktop-section hidden">
-            <button class="btn-back tr-back" onclick="showDesktopSection('desktop-home')">← Volver</button> <br>
-            <img src="sobre-mi.png" class="pc-content-img">
+            <button class="btn-back tr-back" onclick="showDesktopSection('desktop-home')">← Volver</button>
+            <div class="design-card">
+                <div class="about-layout">
+                    <div class="about-text">
+                        <h2 class="tr-about">Sobre Mí</h2>
+                        <h3 class="tr-hi" style="margin-bottom:20px; color:#c7a0d6;">Hola, soy Victoria.</h3>
+                        <p class="tr-bio-1">...</p>
+                        <p class="tr-bio-2">...</p>
+                    </div>
+                    <div class="about-photos">
+                        <img src="foto1.jpg" class="pc-photo">
+                        <img src="foto2.jpg" class="pc-photo">
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div id="desktop-tarifas" class="desktop-section hidden">
-            <button class="btn-back tr-back" onclick="showDesktopSection('desktop-home')">← Volver</button> <br>
-            <img src="tarifas.png" class="pc-content-img">
+            <button class="btn-back tr-back" onclick="showDesktopSection('desktop-home')">← Volver</button>
+            <div class="design-card">
+                <h2 class="tr-rates">Tarifas</h2>
+                <div style="text-align: left;">
+                    <h3 class="tr-t1-title" style="color:#d8bfd8;">...</h3>
+                    <p class="tr-t1-desc">...</p>
+                    <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
+                    
+                    <h3 class="tr-t2-title" style="color:#d8bfd8;">...</h3>
+                    <p class="tr-t2-desc">...</p>
+                    <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
+                    
+                    <h3 class="tr-t3-title" style="color:#d8bfd8;">...</h3>
+                    <p class="tr-t3-desc">...</p>
+                    <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:15px 0;">
+                    
+                    <h3 class="tr-t4-title" style="color:#d8bfd8;">...</h3>
+                    <p class="tr-t4-desc">...</p>
+                </div>
+            </div>
         </div>
+
         <div id="desktop-faq" class="desktop-section hidden">
-            <button class="btn-back tr-back" onclick="showDesktopSection('desktop-home')">← Volver</button> <br>
-            <img src="faq.png" class="pc-content-img">
+            <button class="btn-back tr-back" onclick="showDesktopSection('desktop-home')">← Volver</button>
+            <div class="design-card">
+                <h2 class="tr-faq">Preguntas Frecuentes</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left;">
+                    <div>
+                        <h3 class="tr-q1" style="color:#c7a0d6; margin-bottom:10px;">...</h3>
+                        <p class="tr-a1">...</p>
+                    </div>
+                    <div>
+                        <h3 class="tr-q2" style="color:#c7a0d6; margin-bottom:10px;">...</h3>
+                        <p class="tr-a2">...</p>
+                    </div>
+                    <div style="grid-column: 1 / -1;">
+                        <h3 class="tr-q3" style="color:#c7a0d6; margin-bottom:10px;">...</h3>
+                        <p class="tr-a3">...</p>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div id="desktop-mensaje" class="desktop-section hidden">
@@ -197,6 +263,7 @@
             <button class="btn-reload tr-new-card" onclick="getNewMessage()">Sacar otra carta</button>
         </div>
     </div>
+
 
     <div class="mobile-container mobile-only">
         <div id="mobile-home" class="mobile-section">
@@ -227,33 +294,37 @@
 
         <div id="mobile-sobre-mi" class="mobile-section hidden">
             <button class="btn-back-mobile tr-back" onclick="showMobileSection('mobile-home')">← Volver</button>
-            <div class="text-content about-grid">
+            <div class="design-card">
                 <h2 class="tr-hi">Hola, soy Victoria.</h2>
-                <img src="foto1.jpg" class="my-photo">
-                <p class="tr-bio-1">Desde que tengo memoria, he sentido un imán hacia lo místico...</p>
-                <img src="foto2.jpg" class="my-photo">
-                <p class="tr-bio-2">Hoy utilizo el Tarot como herramienta terapéutica y evolutiva...</p>
+                <img src="foto1.jpg" class="pc-photo" style="margin-bottom:20px;">
+                <p class="tr-bio-1">...</p>
+                <img src="foto2.jpg" class="pc-photo" style="margin-bottom:20px;">
+                <p class="tr-bio-2">...</p>
             </div>
         </div>
 
         <div id="mobile-tarifas" class="mobile-section hidden">
             <button class="btn-back-mobile tr-back" onclick="showMobileSection('mobile-home')">← Volver</button>
-            <div class="text-content">
+            <div class="design-card">
                 <h2 class="tr-rates">Mis Tarifas</h2>
-                <div class="list-item"><div class="list-title tr-t1-title">1. 🌑 LUNA CRECIENTE (20€)</div><p class="tr-t1-desc">15 Min. Respuesta rápida.</p></div>
-                <div class="list-item"><div class="list-title tr-t2-title">2. 🌓 CUARTO CRECIENTE (40€)</div><p class="tr-t2-desc">30 Min. Un tema (Amor/Trabajo).</p></div>
-                <div class="list-item"><div class="list-title tr-t3-title">3. 🌔 LUNA GIBOSA (60€)</div><p class="tr-t3-desc">45 Min. Patrones y bloqueos.</p></div>
-                <div class="list-item"><div class="list-title tr-t4-title">4. 🌕 LUNA LLENA (80€)</div><p class="tr-t4-desc">60 Min. Lectura completa.</p></div>
+                <div style="text-align: left;">
+                    <h3 class="tr-t1-title" style="color:#d8bfd8;">...</h3><p class="tr-t1-desc">...</p><br>
+                    <h3 class="tr-t2-title" style="color:#d8bfd8;">...</h3><p class="tr-t2-desc">...</p><br>
+                    <h3 class="tr-t3-title" style="color:#d8bfd8;">...</h3><p class="tr-t3-desc">...</p><br>
+                    <h3 class="tr-t4-title" style="color:#d8bfd8;">...</h3><p class="tr-t4-desc">...</p>
+                </div>
             </div>
         </div>
 
         <div id="mobile-faq" class="mobile-section hidden">
             <button class="btn-back-mobile tr-back" onclick="showMobileSection('mobile-home')">← Volver</button>
-            <div class="text-content">
+            <div class="design-card">
                 <h2 class="tr-faq">Preguntas</h2>
-                <div class="list-item"><div class="list-title tr-q1">¿Me dirás tragedias?</div><p class="tr-a1">No, el Tarot Evolutivo es para sanar.</p></div>
-                <div class="list-item"><div class="list-title tr-q2">¿Funciona a distancia?</div><p class="tr-a2">Sí, la energía no tiene fronteras.</p></div>
-                <div class="list-item"><div class="list-title tr-q3">¿Cómo reservo?</div><p class="tr-a3">Botón Agenda tu cita.</p></div>
+                <div style="text-align: left;">
+                    <h3 class="tr-q1" style="color:#c7a0d6;">...</h3><p class="tr-a1">...</p><br>
+                    <h3 class="tr-q2" style="color:#c7a0d6;">...</h3><p class="tr-a2">...</p><br>
+                    <h3 class="tr-q3" style="color:#c7a0d6;">...</h3><p class="tr-a3">...</p>
+                </div>
             </div>
         </div>
 
@@ -268,7 +339,6 @@
     </div>
 
     <script>
-        // --- TEXTOS EN 3 IDIOMAS ---
         const translations = {
             es: {
                 title: "TAROT EVOLUTIVO",
@@ -332,7 +402,6 @@
             }
         };
 
-        // --- ORÁCULO EN 3 IDIOMAS ---
         const oracleMessages = {
             es: [
                 "Quien mira hacia afuera, sueña; quien mira hacia adentro, despierta. (C. Jung)",
@@ -373,15 +442,11 @@
 
         function setLanguage(lang) {
             currentLang = lang;
-            
-            // Actualizar botones
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`.lang-btn[onclick="setLanguage('${lang}')"]`).classList.add('active');
 
-            // Actualizar textos simples
             const t = translations[lang];
             
-            // Textos móviles
             updateText('.tr-title', t.title);
             updateText('.tr-about', t.about); updateText('.tr-about-desc', t.aboutDesc);
             updateText('.tr-agenda', t.agenda); updateText('.tr-agenda-desc', t.agendaDesc);
@@ -389,42 +454,34 @@
             updateText('.tr-oracle', t.oracle); updateText('.tr-oracle-desc', t.oracleDesc);
             updateText('.tr-faq', t.faq); updateText('.tr-faq-desc', t.faqDesc);
             
-            // Botones volver y reload
             document.querySelectorAll('.tr-back').forEach(el => el.innerText = t.back);
             document.querySelectorAll('.tr-new-card').forEach(el => el.innerText = t.newCard);
 
-            // Bios y detalles
             updateText('.tr-hi', t.hi);
             updateText('.tr-bio-1', t.bio1);
             updateText('.tr-bio-2', t.bio2);
 
-            // Tarifas
             updateText('.tr-t1-title', t.t1t); updateText('.tr-t1-desc', t.t1d);
             updateText('.tr-t2-title', t.t2t); updateText('.tr-t2-desc', t.t2d);
             updateText('.tr-t3-title', t.t3t); updateText('.tr-t3-desc', t.t3d);
             updateText('.tr-t4-title', t.t4t); updateText('.tr-t4-desc', t.t4d);
 
-            // FAQ
             updateText('.tr-q1', t.q1); updateText('.tr-a1', t.a1);
             updateText('.tr-q2', t.q2); updateText('.tr-a2', t.a2);
             updateText('.tr-q3', t.q3); updateText('.tr-a3', t.a3);
 
-            // Actualizar oráculo al cambiar idioma
             getNewMessage();
         }
 
         function updateText(selector, text) {
-            const el = document.querySelector(selector);
-            if (el) el.innerText = text;
+            document.querySelectorAll(selector).forEach(el => el.innerText = text);
         }
 
         function getNewMessage() {
             const list = oracleMessages[currentLang];
             const randomMsg = list[Math.floor(Math.random() * list.length)];
-            
             const textPC = document.getElementById('oracle-text-pc');
             const textMobile = document.getElementById('oracle-text-mobile');
-            
             if(textPC) textPC.innerText = `"${randomMsg}"`;
             if(textMobile) textMobile.innerText = `"${randomMsg}"`;
         }
@@ -444,7 +501,6 @@
         }
         function showMobileOracle() { showMobileSection('mobile-mensaje'); getNewMessage(); }
 
-        // Iniciar oráculo
         getNewMessage();
     </script>
 </body>
