@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Victoria - Tarot Evolutivo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -21,7 +21,6 @@
             background-color: var(--bg-dark);
             color: var(--white);
             min-height: 100vh;
-            /* FONDO DE ESTRELLAS FIJO PARA TODOS */
             background-image: url('fondo.png'); 
             background-size: cover;
             background-attachment: fixed;
@@ -34,11 +33,57 @@
         .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px; text-align: center; }
         .hidden { display: none !important; }
 
+        /* --- ESTILO "PAPEL MÁGICO" (ORÁCULO) --- */
+        .paper-note {
+            background-color: #fdfbf7;
+            color: #2c2c2c;
+            padding: 40px;
+            max-width: 600px;
+            margin: 40px auto;
+            font-family: 'Dancing Script', cursive; /* Letra manuscrita */
+            font-size: 1.6rem;
+            line-height: 1.5;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform: rotate(-1deg);
+            border-radius: 2px;
+            position: relative;
+            background-image: linear-gradient(#fdfbf7 2px, transparent 2px), linear-gradient(90deg, #fdfbf7 2px, transparent 2px), linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px);
+            background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+            background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+        }
+
+        .tape {
+            background-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            width: 120px;
+            height: 35px;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(2deg);
+            backdrop-filter: blur(2px);
+        }
+
+        .btn-reload {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: var(--primary-purple);
+            color: white;
+            border: 1px solid var(--text-gold);
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        .btn-reload:active { transform: scale(0.95); }
+
         /* =========================================
-           DISEÑO ESCRITORIO (PC) - IDENTICO AL ORIGINAL
+           DISEÑO ESCRITORIO (PC)
            ========================================= */
         @media (min-width: 769px) {
-            .mobile-only { display: none; } /* Ocultar todo lo del móvil */
+            .mobile-only { display: none; }
             
             .desktop-menu-container {
                 position: relative;
@@ -47,7 +92,6 @@
             }
             .menu-img { width: 100%; display: block; border-radius: 20px; }
             
-            /* Botones invisibles PC */
             .click-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
             .click-area { position: absolute; cursor: pointer; border-radius: 12px; z-index: 10; }
             
@@ -60,7 +104,6 @@
             .area-testimonios { top: 49%; left: 52%; width: 20%; height: 38%; } 
             .area-faq { top: 49%; left: 74%; width: 20%; height: 38%; } 
 
-            /* Imágenes de contenido en PC */
             .pc-content-img {
                 width: 100%; max-width: 800px; border-radius: 15px;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-top: 20px;
@@ -68,146 +111,56 @@
         }
 
         /* =========================================
-           DISEÑO MÓVIL (NUEVO) - TEXTO + ESTRELLAS + FOTOS REALES
+           DISEÑO MÓVIL
            ========================================= */
         @media (max-width: 768px) {
-            .desktop-only { display: none; } /* Ocultar todo lo de PC */
+            .desktop-only { display: none; }
             
-            .mobile-container {
-                padding: 15px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
+            .mobile-container { padding: 15px; display: flex; flex-direction: column; align-items: center; }
 
-            /* Título Principal */
             .main-title {
-                font-size: 2rem;
-                color: var(--text-gold);
-                margin-bottom: 30px;
+                font-size: 2rem; color: var(--text-gold); margin-bottom: 30px;
                 text-shadow: 0 0 10px rgba(240, 230, 210, 0.5);
-                border-bottom: 1px solid rgba(240, 230, 210, 0.3);
-                padding-bottom: 10px;
-                width: 100%;
-                text-align: center;
+                border-bottom: 1px solid rgba(240, 230, 210, 0.3); padding-bottom: 10px; width: 100%; text-align: center;
             }
 
-            /* Menú estilo Lista con Cartas */
-            .mobile-menu-list {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-                width: 100%;
-            }
+            .mobile-menu-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
 
             .menu-item {
-                display: flex;
-                align-items: center;
-                background: rgba(10, 10, 18, 0.6); /* Fondo oscuro semitransparente */
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                border-radius: 15px;
-                padding: 15px;
-                text-decoration: none;
-                color: var(--white);
-                transition: transform 0.2s;
+                display: flex; align-items: center; background: rgba(10, 10, 18, 0.6);
+                border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 15px; padding: 15px;
+                text-decoration: none; color: var(--white); transition: transform 0.2s;
             }
-
             .menu-item:active { transform: scale(0.98); background: rgba(94, 59, 99, 0.4); }
 
-            .menu-icon {
-                width: 50px;
-                height: auto;
-                margin-right: 20px;
-                filter: sepia(0.2) drop-shadow(0 0 5px rgba(255,255,255,0.2));
-            }
+            .menu-icon { width: 50px; height: auto; margin-right: 20px; filter: sepia(0.2) drop-shadow(0 0 5px rgba(255,255,255,0.2)); }
+            .menu-text h3 { font-size: 1.2rem; color: var(--text-gold); margin-bottom: 5px; text-align: left; }
+            .menu-text p { font-size: 0.9rem; color: #ccc; text-align: left; font-weight: 300; }
 
-            .menu-text h3 {
-                font-size: 1.2rem;
-                color: var(--text-gold);
-                margin-bottom: 5px;
-                text-align: left;
-            }
-            .menu-text p {
-                font-size: 0.9rem;
-                color: #ccc;
-                text-align: left;
-                font-weight: 300;
-            }
+            .text-content { text-align: left; background: rgba(0, 0, 0, 0.4); padding: 20px; border-radius: 15px; margin-top: 10px; width: 100%; }
+            .text-content p { margin-bottom: 15px; line-height: 1.6; font-size: 1rem; }
+            .text-content h2 { color: var(--text-gold); margin-bottom: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; }
 
-            /* --- ESTILOS TEXTO REAL (Para Sobre Mi, Tarifas, etc) --- */
-            .text-content {
-                text-align: left;
-                background: rgba(0, 0, 0, 0.4); /* Leve fondo para leer mejor */
-                padding: 20px;
-                border-radius: 15px;
-                margin-top: 10px;
-                width: 100%;
-            }
+            .about-grid { display: flex; flex-direction: column; gap: 20px; }
+            .my-photo { width: 100%; border-radius: 15px; border: 1px solid var(--text-gold); box-shadow: 0 0 15px rgba(240, 230, 210, 0.2); }
 
-            .text-content p {
-                margin-bottom: 15px;
-                line-height: 1.6;
-                font-size: 1rem;
-            }
+            .list-item { margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+            .list-title { font-family: 'Cinzel', serif; color: var(--text-gold); font-size: 1.1rem; margin-bottom: 5px; }
 
-            .text-content h2 {
-                color: var(--text-gold);
-                margin-bottom: 20px;
-                text-align: center;
-                border-bottom: 1px solid rgba(255,255,255,0.2);
-                padding-bottom: 10px;
-            }
-
-            /* Estilo específico: Sobre Mí con Fotos */
-            .about-grid {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-            }
-            .my-photo {
-                width: 100%;
-                border-radius: 15px;
-                border: 1px solid var(--text-gold);
-                box-shadow: 0 0 15px rgba(240, 230, 210, 0.2);
-            }
-
-            /* Estilo Tarifas/FAQ */
-            .list-item {
-                margin-bottom: 25px;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-                padding-bottom: 15px;
-            }
-            .list-title {
-                font-family: 'Cinzel', serif;
-                color: var(--text-gold);
-                font-size: 1.1rem;
-                margin-bottom: 5px;
-            }
-
-            .btn-back-mobile {
-                background: transparent;
-                border: 1px solid var(--white);
-                color: var(--white);
-                padding: 10px 20px;
-                border-radius: 30px;
-                margin-bottom: 20px;
-                font-family: 'Cinzel', serif;
-                width: 100%;
-            }
+            .btn-back-mobile { background: transparent; border: 1px solid var(--white); color: var(--white); padding: 10px 20px; border-radius: 30px; margin-bottom: 20px; font-family: 'Cinzel', serif; width: 100%; }
         }
     </style>
 </head>
 <body>
 
     <div class="container desktop-only">
-        
         <div id="desktop-home" class="desktop-section active">
             <div class="desktop-menu-container">
                 <img src="menu-principal.png" alt="Menú Tarot" class="menu-img">
                 <div class="click-layer">
                     <div class="click-area area-sobremi" onclick="showDesktopSection('desktop-sobre-mi')"></div>
                     <a href="https://calendly.com/victoria-tarot/30min" class="click-area area-agenda" target="_blank"></a>
-                    <div class="click-area area-mensaje" onclick="showDesktopSection('desktop-mensaje')"></div>
+                    <div class="click-area area-mensaje" onclick="showOracle()"></div>
                     <div class="click-area area-amuletos" onclick="alert('Próximamente')"></div>
                     <div class="click-area area-tarifas" onclick="showDesktopSection('desktop-tarifas')"></div>
                     <div class="click-area area-testimonios" onclick="alert('Próximamente')"></div>
@@ -217,170 +170,156 @@
         </div>
 
         <div id="desktop-sobre-mi" class="desktop-section hidden">
-            <button class="btn-back" onclick="showDesktopSection('desktop-home')" style="color:white; background:transparent; border:1px solid white; padding:10px; border-radius:20px; cursor:pointer;">← Volver</button>
-            <br>
+            <button class="btn-back" onclick="showDesktopSection('desktop-home')" style="color:white; background:transparent; border:1px solid white; padding:10px; border-radius:20px; cursor:pointer;">← Volver</button> <br>
             <img src="sobre-mi.png" class="pc-content-img">
         </div>
-        <div id="desktop-mensaje" class="desktop-section hidden">
-            <button class="btn-back" onclick="showDesktopSection('desktop-home')" style="color:white; background:transparent; border:1px solid white; padding:10px; border-radius:20px; cursor:pointer;">← Volver</button>
-            <br>
-            <img src="mensaje.png" class="pc-content-img">
-        </div>
         <div id="desktop-tarifas" class="desktop-section hidden">
-            <button class="btn-back" onclick="showDesktopSection('desktop-home')" style="color:white; background:transparent; border:1px solid white; padding:10px; border-radius:20px; cursor:pointer;">← Volver</button>
-            <br>
+            <button class="btn-back" onclick="showDesktopSection('desktop-home')" style="color:white; background:transparent; border:1px solid white; padding:10px; border-radius:20px; cursor:pointer;">← Volver</button> <br>
             <img src="tarifas.png" class="pc-content-img">
         </div>
         <div id="desktop-faq" class="desktop-section hidden">
-            <button class="btn-back" onclick="showDesktopSection('desktop-home')" style="color:white; background:transparent; border:1px solid white; padding:10px; border-radius:20px; cursor:pointer;">← Volver</button>
-            <br>
+            <button class="btn-back" onclick="showDesktopSection('desktop-home')" style="color:white; background:transparent; border:1px solid white; padding:10px; border-radius:20px; cursor:pointer;">← Volver</button> <br>
             <img src="faq.png" class="pc-content-img">
         </div>
-
+        
+        <div id="desktop-mensaje" class="desktop-section hidden">
+            <button class="btn-back" onclick="showDesktopSection('desktop-home')" style="color:white; background:transparent; border:1px solid white; padding:10px; border-radius:20px; cursor:pointer;">← Volver</button>
+            <div class="paper-note">
+                <div class="tape"></div>
+                <p id="oracle-text-pc">Cargando tu mensaje...</p>
+            </div>
+            <button class="btn-reload" onclick="getNewMessage()">Sacar otra carta</button>
+        </div>
     </div>
 
 
     <div class="mobile-container mobile-only">
-
         <div id="mobile-home" class="mobile-section">
             <h1 class="main-title">TAROT EVOLUTIVO</h1>
-            
             <div class="mobile-menu-list">
-                
                 <div class="menu-item" onclick="showMobileSection('mobile-sobre-mi')">
                     <img src="86008.png" class="menu-icon">
-                    <div class="menu-text">
-                        <h3>Sobre Mí</h3>
-                        <p>Conoce mi historia y mi método.</p>
-                    </div>
+                    <div class="menu-text"><h3>Sobre Mí</h3><p>Conoce mi historia.</p></div>
                 </div>
-
                 <a href="https://calendly.com/victoria-tarot/30min" target="_blank" class="menu-item" style="border-color: #f0e6d2; background: rgba(94, 59, 99, 0.6);">
-                    <img src="86003.png" class="menu-icon"> <div class="menu-text">
-                        <h3>Agenda tu cita</h3>
-                        <p>Reserva tu lectura aquí.</p>
-                    </div>
+                    <img src="86003.png" class="menu-icon">
+                    <div class="menu-text"><h3>Agenda tu cita</h3><p>Reserva aquí.</p></div>
                 </a>
-
                 <div class="menu-item" onclick="showMobileSection('mobile-tarifas')">
-                    <img src="86004.png" class="menu-icon"> <div class="menu-text">
-                        <h3>Tarifas</h3>
-                        <p>Opciones de lectura y precios.</p>
-                    </div>
+                    <img src="86004.png" class="menu-icon">
+                    <div class="menu-text"><h3>Tarifas</h3><p>Opciones y precios.</p></div>
                 </div>
-
-                <div class="menu-item" onclick="showMobileSection('mobile-mensaje')">
-                    <img src="86002.png" class="menu-icon"> <div class="menu-text">
-                        <h3>Mensaje del día</h3>
-                        <p>Un consejo del universo para ti.</p>
-                    </div>
+                <div class="menu-item" onclick="showMobileOracle()"> 
+                    <img src="86002.png" class="menu-icon">
+                    <div class="menu-text"><h3>Mensaje del día</h3><p>Un consejo del universo.</p></div>
                 </div>
-
                 <div class="menu-item" onclick="showMobileSection('mobile-faq')">
-                    <img src="86006.png" class="menu-icon"> <div class="menu-text">
-                        <h3>Preguntas</h3>
-                        <p>Respuestas frecuentes.</p>
-                    </div>
+                    <img src="86006.png" class="menu-icon">
+                    <div class="menu-text"><h3>Preguntas</h3><p>Respuestas frecuentes.</p></div>
                 </div>
-
             </div>
         </div>
 
         <div id="mobile-sobre-mi" class="mobile-section hidden">
             <button class="btn-back-mobile" onclick="showMobileSection('mobile-home')">← Volver al Menú</button>
-            
             <div class="text-content about-grid">
                 <h2>Hola, soy Victoria.</h2>
-                
                 <img src="foto1.jpg" class="my-photo" alt="Foto Victoria 1">
-
-                <p>Desde que tengo memoria, he sentido un imán hacia lo místico, la magia y todo aquello que nuestros ojos no ven a simple vista. Mientras otros miraban hacia afuera, yo siempre sentí curiosidad por mirar hacia adentro.</p>
-                <p>Cuando el Tarot llegó a mis manos, no fue un descubrimiento, fue una evidencia. Sentí que había encontrado un lenguaje que siempre supe hablar.</p>
-                
+                <p>Desde que tengo memoria, he sentido un imán hacia lo místico, la magia y todo aquello que nuestros ojos no ven a simple vista. Mientras otros miraban hacia afuera, yo siempre sentí curiosidad por mirar hacia adentro, hacia lo desconocido.</p>
                 <img src="foto2.jpg" class="my-photo" alt="Foto Victoria 2">
-
-                <p>Pasé años estudiándolo con respeto, pero fue cuando conocí la visión de Alejandro Jodorowsky que todo cobró una nueva dimensión.</p>
-                <p>Hoy utilizo el Tarot como herramienta terapéutica y evolutiva. Mi objetivo es acompañarte a descifrar tus bloqueos y devolverte el poder sobre tu destino.</p>
+                <p>Hoy utilizo el Tarot como herramienta terapéutica y evolutiva. Mi objetivo es acompañarte a descifrar tus bloqueos y devolverte el poder sobre tu destino. Estoy aquí para poner mi experiencia al servicio de quienes, como tú, necesitan encontrarse y sanar.</p>
             </div>
         </div>
 
         <div id="mobile-tarifas" class="mobile-section hidden">
             <button class="btn-back-mobile" onclick="showMobileSection('mobile-home')">← Volver al Menú</button>
-            
             <div class="text-content">
                 <h2>Mis Tarifas</h2>
-                
-                <div class="list-item">
-                    <div class="list-title">1. 🌑 LUNA CRECIENTE (20€)</div>
-                    <p><strong>Tiempo:</strong> 15 Minutos<br>
-                    Para una duda puntual. Una respuesta rápida que trae el primer rayo de luz a una situación urgente.</p>
-                </div>
-
-                <div class="list-item">
-                    <div class="list-title">2. 🌓 CUARTO CRECIENTE (40€)</div>
-                    <p><strong>Tiempo:</strong> 30 Minutos<br>
-                    Enfocada en un solo tema (Amor o Trabajo). Profundizamos en la energía disponible.</p>
-                </div>
-
-                <div class="list-item">
-                    <div class="list-title">3. 🌔 LUNA GIBOSA (60€)</div>
-                    <p><strong>Tiempo:</strong> 45 Minutos<br>
-                    Analizamos patrones del pasado que afectan tu presente. Mucha más claridad.</p>
-                </div>
-
-                <div class="list-item">
-                    <div class="list-title">4. 🌕 LUNA LLENA (80€)</div>
-                    <p><strong>Tiempo:</strong> 60 Minutos<br>
-                    Iluminamos todas las áreas de tu vida para un reset total del alma.</p>
-                </div>
+                <div class="list-item"><div class="list-title">1. 🌑 LUNA CRECIENTE (20€)</div><p>15 Min. Respuesta rápida.</p></div>
+                <div class="list-item"><div class="list-title">2. 🌓 CUARTO CRECIENTE (40€)</div><p>30 Min. Un tema (Amor/Trabajo).</p></div>
+                <div class="list-item"><div class="list-title">3. 🌔 LUNA GIBOSA (60€)</div><p>45 Min. Patrones y bloqueos.</p></div>
+                <div class="list-item"><div class="list-title">4. 🌕 LUNA LLENA (80€)</div><p>60 Min. Lectura completa.</p></div>
             </div>
         </div>
 
         <div id="mobile-faq" class="mobile-section hidden">
             <button class="btn-back-mobile" onclick="showMobileSection('mobile-home')">← Volver al Menú</button>
             <div class="text-content">
-                <h2>Preguntas Frecuentes</h2>
-                
-                <div class="list-item">
-                    <div class="list-title">¿Me dirás cosas malas o tragedias?</div>
-                    <p>No. El Tarot Evolutivo no sentencia tu futuro ni busca asustarte. Usamos las cartas para sanar y entender tu presente. Saldrás con paz, no con miedo.</p>
-                </div>
-                <div class="list-item">
-                    <div class="list-title">¿En qué te diferencias de una vidente?</div>
-                    <p>Yo no "adivino" qué te va a pasar, porque el futuro no está escrito. Te ayudo a entender por qué te pasa lo que te pasa.</p>
-                </div>
-                <div class="list-item">
-                    <div class="list-title">¿Funciona a distancia?</div>
-                    <p>¡Sí! La energía no tiene fronteras. Nos conectamos por videollamada y la sesión es tan profunda como frente a frente.</p>
-                </div>
-                 <div class="list-item">
-                    <div class="list-title">¿Cómo reservo?</div>
-                    <p>Ve al botón de "Agenda tu cita", elige día y hora en el calendario y realiza el pago para confirmar.</p>
-                </div>
+                <h2>Preguntas</h2>
+                <div class="list-item"><div class="list-title">¿Me dirás tragedias?</div><p>No, el Tarot Evolutivo es para sanar, no para asustar.</p></div>
+                <div class="list-item"><div class="list-title">¿Funciona a distancia?</div><p>Sí, la energía no tiene fronteras.</p></div>
+                <div class="list-item"><div class="list-title">¿Cómo reservo mi cita?</div><p>Ve al botón de "Agenda tu cita" y elige en el calendario.</p></div>
             </div>
         </div>
 
         <div id="mobile-mensaje" class="mobile-section hidden">
             <button class="btn-back-mobile" onclick="showMobileSection('mobile-home')">← Volver al Menú</button>
-            <img src="85973.png" style="width:100%; border-radius:15px; margin-top:20px;">
+            <div class="paper-note">
+                <div class="tape"></div>
+                <p id="oracle-text-mobile">Conectando con el universo...</p>
+            </div>
+            <button class="btn-reload" onclick="getNewMessage()">✨ Sacar otra Carta</button>
         </div>
-
     </div>
 
     <script>
-        // Lógica para PC
+        // === LISTA DE MENSAJES (Inspirados en Jodorowsky y Jung) ===
+        const messages = [
+            "Quien mira hacia afuera, sueña; quien mira hacia adentro, despierta. (C. Jung)",
+            "Lo que niegas te somete, lo que aceptas te transforma. (C. Jung)",
+            "El Tarot es un espejo: no te muestra el futuro, te muestra tu presente para que tú crees el futuro. (A. Jodorowsky)",
+            "Tu árbol genealógico es una trampa, pero tiene una puerta de salida: la conciencia. (A. Jodorowsky)",
+            "Hasta que lo inconsciente no se haga consciente, el subconsciente seguirá dirigiendo tu vida y tú lo llamarás destino. (C. Jung)",
+            "Haz hoy algo que nunca hayas hecho. Rompe el hábito para romper el destino. (Psicomagia)",
+            "No aspires a ser bueno, aspira a ser completo. Integra tu sombra. (C. Jung)",
+            "La familia es un tesoro, pero también una cárcel. Tienes la llave para salir y sanar. (A. Jodorowsky)",
+            "La sincronicidad no es casualidad, es el universo dialogando contigo.",
+            "Lo que te irrita de los demás es solo una proyección de lo que no has resuelto en ti mismo. (C. Jung)",
+            "Para sanar, debes dejar de ser una víctima de tu pasado y convertirte en el héroe de tu futuro.",
+            "El pájaro rompe el cascarón. El huevo es el mundo. Quien quiera nacer, tiene que destruir un mundo. (Hesse/Jung)",
+            "Eres el resultado de tus antepasados, pero eres libre de no repetir sus errores.",
+            "Donde está tu miedo, ahí está tu tarea. (C. Jung)",
+            "La jaula es imaginaria. Tus límites son mentales. (A. Jodorowsky)",
+            "Todo lo que nos irrita de otros nos lleva a un entendimiento de nosotros mismos. (C. Jung)",
+            "La vida no es lo que te pasa, es lo que haces con lo que te pasa.",
+            "Si quieres cambiar el mundo, empieza por transformar tu propia conciencia.",
+            "El encuentro de dos personalidades es como el contacto de dos sustancias químicas: si hay alguna reacción, ambas se transforman. (C. Jung)",
+            "Cesa de definirte: concédete todas las posibilidades de ser, cambia de caminos cuantas veces te sea necesario. (A. Jodorowsky)"
+        ];
+
+        function getNewMessage() {
+            // Elegir uno al azar
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            
+            // Ponerlo en PC y Móvil
+            const textPC = document.getElementById('oracle-text-pc');
+            const textMobile = document.getElementById('oracle-text-mobile');
+            
+            if(textPC) textPC.innerText = `"${randomMsg}"`;
+            if(textMobile) textMobile.innerText = `"${randomMsg}"`;
+        }
+
+        // Lógica PC
         function showDesktopSection(id) {
             document.querySelectorAll('.desktop-section').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.desktop-section').forEach(el => el.classList.remove('active'));
             document.getElementById(id).classList.remove('hidden');
             document.getElementById(id).classList.add('active');
         }
+        function showOracle() {
+            showDesktopSection('desktop-mensaje');
+            getNewMessage(); 
+        }
 
-        // Lógica para Móvil
+        // Lógica Móvil
         function showMobileSection(id) {
             document.querySelectorAll('.mobile-section').forEach(el => el.classList.add('hidden'));
             document.getElementById(id).classList.remove('hidden');
             window.scrollTo(0,0);
+        }
+        function showMobileOracle() {
+            showMobileSection('mobile-mensaje');
+            getNewMessage(); 
         }
     </script>
 </body>
