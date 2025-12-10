@@ -8,7 +8,7 @@
     
     <style>
         :root {
-            --primary-purple: #5e3b63; /* Color de tus botones en móvil */
+            --primary-purple: #5e3b63;
             --bg-dark: #0a0a12;
             --white: #ffffff;
         }
@@ -23,7 +23,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* FONDO DE ESTRELLAS */
+            /* IMAGEN DE FONDO */
             background-image: url('fondo.png'); 
             background-size: cover;
             background-attachment: fixed;
@@ -34,7 +34,6 @@
 
         .container { max-width: 1000px; width: 100%; padding: 20px; text-align: center; }
 
-        /* --- SECCIONES --- */
         .section { display: none; animation: fadeIn 0.5s ease; }
         .section.active { display: block; }
 
@@ -43,7 +42,6 @@
             to { opacity: 1; }
         }
 
-        /* --- IMÁGENES DE CONTENIDO --- */
         .content-img {
             width: 100%;
             height: auto;
@@ -51,7 +49,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* --- BOTÓN VOLVER --- */
         .btn-back {
             display: inline-block;
             background: rgba(0, 0, 0, 0.5);
@@ -62,7 +59,7 @@
         }
         .btn-back:hover { background: var(--white); color: var(--bg-dark); }
 
-        /* --- MENÚ PRINCIPAL INTERACTIVO (VERSION ESCRITORIO) --- */
+        /* --- MENÚ ESCRITORIO --- */
         .menu-container {
             position: relative;
             width: 100%;
@@ -76,65 +73,58 @@
             border-radius: 20px;
         }
 
-        /* Capa de botones invisibles */
-        .click-layer {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-        }
+        .click-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         .click-area {
             position: absolute;
             cursor: pointer;
-            /* background: rgba(255, 0, 0, 0.3); /* <-- DESCOMENTA PARA VER LAS ZONAS DE CLIC */
             border-radius: 12px;
+            z-index: 10; /* Asegura que el botón esté encima de la imagen */
+            /* Si quieres ver los botones rojos para probar, quita los símbolos de comentario abajo: */
+            /* background: rgba(255, 0, 0, 0.3); */
         }
 
-        /* Posiciones de los botones sobre tu diseño */
-        .area-sobremi { top: 18.5%; left: 6.8%; width: 20.5%; height: 53%; }
-        .area-agenda { top: 7.5%; left: 29%; width: 20.5%; height: 38.5%; }
-        .area-mensaje { top: 7.5%; left: 50.8%; width: 20.5%; height: 38.5%; }
-        .area-amuletos { top: 7.5%; left: 72.6%; width: 20.5%; height: 38.5%; }
-        .area-tarifas { top: 47.8%; left: 29%; width: 20.5%; height: 38.5%; }
-        .area-testimonios { top: 47.8%; left: 50.8%; width: 20.5%; height: 38.5%; }
-        .area-faq { top: 47.8%; left: 72.6%; width: 20.5%; height: 38.5%; }
+        /* AJUSTE DE POSICIONES (Para tu diseño de 1 carta izq + 6 cartas derecha) */
+        
+        /* Carta Grande Izquierda: Sobre Mí */
+        .area-sobremi { top: 18%; left: 7%; width: 21%; height: 54%; }
+        
+        /* Fila de Arriba */
+        .area-agenda { top: 8%; left: 30%; width: 20%; height: 38%; } /* Agenda tu cita */
+        .area-mensaje { top: 8%; left: 52%; width: 20%; height: 38%; } /* Mensaje del día */
+        .area-amuletos { top: 8%; left: 74%; width: 20%; height: 38%; } /* Amuletos */
+        
+        /* Fila de Abajo */
+        .area-tarifas { top: 49%; left: 30%; width: 20%; height: 38%; } /* Tarifas */
+        .area-testimonios { top: 49%; left: 52%; width: 20%; height: 38%; } /* Testimonios */
+        .area-faq { top: 49%; left: 74%; width: 20%; height: 38%; } /* FAQ */
 
-
-        /* --- VERSIÓN MÓVIL (CELULAR) --- */
+        /* --- MÓVIL --- */
         .mobile-nav { display: none; }
 
         @media (max-width: 768px) {
-            /* En móvil, ocultamos la imagen interactiva compleja */
             .menu-container { display: none; }
-            
-            /* Y mostramos un menú de botones simple y fácil de usar */
             .mobile-nav { display: block; }
-            
-            .mobile-header-img {
-                width: 100%;
-                border-radius: 15px 15px 0 0;
-                margin-bottom: -5px;
-            }
             
             .mobile-links {
                 display: grid;
                 grid-template-columns: 1fr;
-                gap: 10px;
-                background: rgba(94, 59, 99, 0.3);
+                gap: 15px;
                 padding: 20px;
-                border-radius: 0 0 15px 15px;
-                backdrop-filter: blur(5px);
             }
 
             .mobile-btn {
-                padding: 15px;
-                background-color: var(--primary-purple);
+                padding: 20px;
+                background-color: rgba(94, 59, 99, 0.9);
                 color: var(--white);
                 text-decoration: none;
-                border-radius: 10px;
+                border-radius: 15px;
                 font-family: 'Cinzel', serif;
                 font-weight: 700;
-                border: 1px solid rgba(255,255,255,0.2);
-                display: flex; align-items: center; justify-content: center; gap: 10px;
+                font-size: 1.1rem;
+                border: 1px solid rgba(255,255,255,0.3);
+                display: block;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             }
         }
     </style>
@@ -144,12 +134,14 @@
     <div class="container">
         
         <div id="home" class="section active">
-            
             <div class="menu-container">
-                <img src="menu-principal.png" alt="Menú Tarot Evolutivo" class="menu-img">
+                <img src="menu-principal.png" alt="Menú Tarot" class="menu-img">
+                
                 <div class="click-layer">
                     <div class="click-area area-sobremi" onclick="showSection('sobre-mi')" title="Sobre Mí"></div>
-                    <a href="https://calendly.com/victoria-picon90/30min" class="click-area area-agenda" title="Agenda tu cita" target="_blank"></a>
+                    
+                    <a href="https://calendly.com/victoria-picon90/30min" class="click-area area-agenda" target="_blank" title="Agenda tu cita"></a>
+                    
                     <div class="click-area area-mensaje" onclick="showSection('mensaje')" title="Mensaje del día"></div>
                     <div class="click-area area-amuletos" onclick="alert('Sección Amuletos próximamente')" title="Amuletos"></div>
                     <div class="click-area area-tarifas" onclick="showSection('tarifas')" title="Tarifas"></div>
@@ -159,54 +151,9 @@
             </div>
 
             <div class="mobile-nav">
-                <h1 style="margin-bottom: 20px; font-size: 2rem;">TAROT EVOLUTIVO</h1>
+                <h1 style="margin-bottom: 30px; font-size: 2rem; text-shadow: 0 0 10px #d8bfd8;">TAROT EVOLUTIVO</h1>
                 <div class="mobile-links">
                     <a class="mobile-btn" onclick="showSection('sobre-mi')">🔮 Sobre Mí</a>
                     <a href="https://calendly.com/victoria-picon90/30min" class="mobile-btn" target="_blank">💑 Agenda tu cita</a>
                     <a class="mobile-btn" onclick="showSection('tarifas')">🎡 Tarifas</a>
-                    <a class="mobile-btn" onclick="showSection('mensaje')">☀️ Mensaje del día</a>
-                    <a class="mobile-btn" onclick="showSection('faq')">🌙 Preguntas Frecuentes</a>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div id="sobre-mi" class="section">
-            <button class="btn-back" onclick="showSection('home')">← Volver al menú</button>
-            <img src="sobre-mi.png" alt="Sobre Victoria" class="content-img">
-        </div>
-
-        <div id="tarifas" class="section">
-            <button class="btn-back" onclick="showSection('home')">← Volver al menú</button>
-            <img src="tarifas.png" alt="Lista de Tarifas" class="content-img">
-        </div>
-
-        <div id="mensaje" class="section">
-            <button class="btn-back" onclick="showSection('home')">← Volver al menú</button>
-            <img src="mensaje.png" alt="Mensaje del Universo" class="content-img" style="max-width: 800px;">
-        </div>
-
-        <div id="faq" class="section">
-            <button class="btn-back" onclick="showSection('home')">← Volver al menú</button>
-            <img src="faq.png" alt="Preguntas Frecuentes" class="content-img">
-        </div>
-
-    </div>
-
-    <script>
-        function showSection(sectionId) {
-            // Ocultar todas las secciones
-            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-            // Mostrar la sección elegida
-            const target = document.getElementById(sectionId);
-            if (target) {
-                target.classList.add('active');
-                // Hacer scroll arriba suavemente
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-    </script>
-
-</body>
-</html>
+                    <a class="mobile-btn" onclick="showSection
