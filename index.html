@@ -208,7 +208,8 @@
         <div id="desktop-sobre-mi" class="desktop-section hidden">
             <button class="btn-back tr-back" onclick="goHome()">← Volver</button>
             <div class="design-card">
-                <div class="about-layout">
+                
+                <div class="about-layout desktop-only" style="display:flex;">
                     <div class="about-text">
                         <h2 class="tr-about">Sobre Mí</h2>
                         <h3 class="tr-hi" style="color:#c7a0d6; margin-bottom:20px;">Hola, soy Victoria.</h3>
@@ -220,6 +221,19 @@
                         <img src="foto2.jpg" class="pc-photo">
                     </div>
                 </div>
+
+                <div class="mobile-only" style="display: flex; flex-direction: column; gap: 25px;">
+                    <img src="foto1.jpg" class="pc-photo">
+                    
+                    <div>
+                        <h2 class="tr-hi" style="margin-top: 0; text-align: center;">Hola, soy Victoria.</h2>
+                        <p class="tr-bio-1" style="margin-bottom: 15px;">...</p>
+                        <p class="tr-bio-2">...</p>
+                    </div>
+
+                    <img src="foto2.jpg" class="pc-photo">
+                </div>
+
             </div>
         </div>
 
